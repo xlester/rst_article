@@ -1,0 +1,112 @@
+1-Generalized phase-shifting interferometry by use of a direct stochastic algorithm for global search
+Optics Letters, Vol. 29, Issue 12, pp. 1381-1383 (2004)
+http://dx.doi.org/10.1364/OL.29.001381
+
+2-Advanced iterative algorithm for phase extraction of randomly phase-shifted interferograms
+Optics Letters, Vol. 29, Issue 14, pp. 1671-1673 (2004)
+http://dx.doi.org/10.1364/OL.29.001671
+
+3-Phase-shifting algorithms for nonlinear and spatially nonuniform phase shifts: reply to comment
+JOSA A, Vol. 15, Issue 5, pp. 1234-1235 (1998)
+http://dx.doi.org/10.1364/JOSAA.15.001234
+
+4-Phase-shifting algorithms for nonlinear and spatially nonuniform phase shifts: comment
+JOSA A, Vol. 15, Issue 5, pp. 1227-1233 (1998)
+http://dx.doi.org/10.1364/JOSAA.15.001227
+
+5-Phase-shifting algorithms for nonlinear and spatially nonuniform phase shifts
+JOSA A, Vol. 14, Issue 4, pp. 918-930 (1997)
+http://dx.doi.org/10.1364/JOSAA.14.000918
+
+6-Phase shifting for nonsinusoidal waveforms with phase-shift errors
+JOSA A, Vol. 12, Issue 4, pp. 761-768 (1995)
+http://dx.doi.org/10.1364/JOSAA.12.000761
+
+7-A self-calibrating phase-shifting algorithm based on the natural demodulation of two-dimensional fringe patterns
+Optics Express, Vol. 9, Issue 5, pp. 236-253 (2001)
+http://dx.doi.org/10.1364/OE.9.000236
+
+8-Least-squares estimation in phase-measurement interferometry
+Optics Letters, Vol. 7, Issue 8, pp. 368-370 (1982)
+http://dx.doi.org/10.1364/OL.7.000368
+
+9-Multiphase fringe analysis with unkown phase shifts
+Opt. Eng. 33, (6), 2039-2044,(1994).
+
+10-Phase extraction from randomly phase-shifted interferograms by combining principal component analysis and least squares method
+Optics Express, Vol. 19, Issue 21, pp. 20483-20492 (2011)
+http://dx.doi.org/10.1364/OE.19.020483
+
+11-Phase-Shifting Interferometry with Uncalibrated Phase Shifts
+Applied Optics, Vol. 39, Issue 4, pp. 585-591 (2000)
+http://dx.doi.org/10.1364/AO.39.000585
+
+12-Principal component analysis of multiple-beam Fizeau interferograms with random phase shifts
+Optics Express, Vol. 19, Issue 15, pp. 14464-14472 (2011)
+http://dx.doi.org/10.1364/OE.19.014464
+
+13-Spatial carrier phase-shifting algorithm based on principal component analysis method
+Optics Express, Vol. 20, Issue 15, pp. 16471-16479 (2012)
+http://dx.doi.org/10.1364/OE.20.016471
+
+14-Direct phase extraction from interferograms with random phase shifts
+Optics Express, Vol. 18, Issue 20, pp. 20620-20627 (2010)
+http://dx.doi.org/10.1364/OE.18.020620
+
+15-An Iterative Tilt-Immune Phase-Shifting Algorithm
+
+16-Phase-shift extraction for phase-shifting interferometry by histogram of phase difference
+Optics Express, Vol. 18, Issue 23, pp. 24368-24378 (2010)
+http://dx.doi.org/10.1364/OE.18.024368
+
+16-Random phase-shifting interferometry without accurately controlling or calibrating the phase shifts
+Optics Letters, Vol. 34, Issue 8, pp. 1288-1290 (2009)
+http://dx.doi.org/10.1364/OL.34.001288
+
+17-Spatial carrier phase-shifting algorithm based on least-squares iteration
+Applied Optics, Vol. 47, Issue 29, pp. 5446-5453 (2008)
+http://dx.doi.org/10.1364/AO.47.005446
+
+18-Iterative algorithm for phase extraction from interferograms with random and spatially nonuniform phase shifts
+Applied Optics, Vol. 47, Issue 3, pp. 480-485 (2008)
+http://dx.doi.org/10.1364/AO.47.000480
+
+19-Phase-shift extraction and wave-front reconstruction in phase-shifting interferometry with arbitrary phase steps
+Optics Letters, Vol. 28, Issue 19, pp. 1808-1810 (2003)
+http://dx.doi.org/10.1364/OL.28.001808
+
+20-Comment on 'Phase-shift extraction and wave-front reconstruction in phase-shifting interferometry with arbitrary phase steps'
+Optics Letters, Vol. 29, Issue 11, pp. 1257-1258 (2004)
+http://dx.doi.org/10.1364/OL.29.001257
+
+21-Reply to comment on 'Phase-shift extraction and wave-front reconstruction in phase-shifting interferometry with arbitrary phase steps'
+Optics Letters, Vol. 29, Issue 11, pp. 1259-1260 (2004)
+http://dx.doi.org/10.1364/OL.29.001259
+
+22-Generalized phase-shifting interferometry with arbitrary unknown phase steps for diffraction objects
+Optics Letters, Vol. 29, Issue 2, pp. 183-185 (2004)
+http://dx.doi.org/10.1364/OL.29.000183
+
+23-Two-step phase-shift interferometry with known but arbitrary reference waves: a graphical interpretation
+Applied Optics, Vol. 51, Issue 28, pp. 6831-6838 (2012)
+http://dx.doi.org/10.1364/AO.51.006831
+
+24-Estimation of multiple phases in interferometry in the presence of nonlinear arbitrary phase steps
+Optics Express, Vol. 14, Issue 17, pp. 7686-7691 (2006)
+http://dx.doi.org/10.1364/OE.14.007686
+
+25-Half-quadratic cost function for computing arbitrary phase shifts and phase: Adaptive out of step phase shifting
+Optics Express, Vol. 14, Issue 8, pp. 3204-3213 (2006)
+http://dx.doi.org/10.1364/OE.14.003204
+
+26-Phase-shifting interferometry by a covariance-based method
+Applied Optics, Vol. 44, Issue 27, pp. 5778-5785 (2005)
+http://dx.doi.org/10.1364/AO.44.005778
+
+27-Predicting phase steps in phase-shifting interferometry in the presence of noise and harmonics
+Applied Optics, Vol. 45, Issue 24, pp. 6106-6112 (2006)
+http://dx.doi.org/10.1364/AO.45.006106
+
+28-Phase-shifting interferometry in the presence of nonlinear phase steps, harmonics, and noise
+Optics Letters, Vol. 31, Issue 8, pp. 1058-1060 (2006)
+http://dx.doi.org/10.1364/OL.31.001058

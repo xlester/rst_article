@@ -1,0 +1,83 @@
+\documentclass[letterpaper,12pt]{article}   %% LaTeX 2e (preferred)
+\usepackage{osajnl2} %% do not use with REVTeX4
+\usepackage[draft]{hyperref} %% optional
+
+
+\begin{document}
+
+\title{Robust Self Tuning algorithm for phase shifting interferometry }
+\author{O. Medina,$^{1,*}$ J. C. Estra,$^{1}$ and M. Servin,$^{1}$}
+\address{$^1$Centro de Investigaciones en \'{O}ptica A. C., Loma del bosque 115, Col. Lomas del Campestre, Le\'{o}n Guanajuato,
+37150, M\'{e}xico}
+\address{$^*$Corresponding author: orlandomedina@cio.mx}
+
+\maketitle
+
+\begin{abstract}
+In this work, we develop a regularization technique to demodulate a phase-shifting interferometry sequence with arbitrary inter-frame phase shifts. With this method, we can recover the modulating phase and inter-frame phase shifts in the same process. As all phase-shifting algorithms, the assumption is that the wave front under test does not change over time, but the introduction of phase-shifts can vary in a non constant way. A notable characteristic of this demodulation method is that not only can it recover the modulating phase, but it is also capable of filtering-out large amounts of corrupting noise. We will show numerical experimental results and comparisons with another already published method to see the performance of the demodulation technique developed herein.
+\end{abstract}
+\ocis{120.0120, 120.3180, 120.3940, 120.5050, 120.2650, 050.5080}
+
+\section{Introduction}
+Nowadays, Phase Shifting Interferometry (PSI) techniques are some of the most used techniques in optical metrology.1 In PSI, one obtains an small sequence of at least 3 interferograms with a phase-shift among them.1 To recover the modulating phase, there are standard demodulation PSI methods, the well known 3-, 4-, and 5- step phase-shifting algorithms. Knowing the inter-frame phase-shifts (or temporal carrier), the standard methods recover the 2$\pi$ modulus phase map with the minimum possible error. 1-3 If we do not know the phase-shifts exactly, we obtain a phase map with an unavoidable detuning error whose magnitude depends on the number of interferograms employed and on how far we are from the actual phase-shifts.3-6 This unfortunate case can occur when the optical interferometer setup is uncalibrated or when perturbations from the environment affect the interferometer's optical path. For example, for most phase shifters, such as a piezoelectric (PZT), there is a repeatability problem arising from hysteresis, non linearity and temperature linear drift;5,7 curiously, the first phase-shifting algorithms were self-tuning nonlinear algorithms. 8,9 To reduce detuning errors, other approaches propose error compensating algorithms that basically use redundant data, such as the Schwider-Hariharan 5- step algorithm, 4, 10, 11 and more recently, the 9-step algorithm shown in Ref.12 has been used to do it by constructing a wide-band frequency response of the phase-shifting algorithm. Further methods use the Fourier transform in order to estimate the inter-frame phase-shifts, and others are based on the least-squares scheme, iteratively estimating the inter-frame phase-shifts and phase. 13,14 Ref. 16 presentes an approach that estimatesthe local temporal carrier (the phase-shift) as the average of the phase difference between two consecutive phase maps obtained from two realizations of the tunable 3-step algorithm. What we are going to show in this work is a regularized self-tuning demodulation technique that obtains the analytical image (complex interferogram) and inter-frame phase-shifts from an interferogram sequence. Thus, we can recover the modulating phase 2$\pi$ modulus and the inter-frame phase shifts in the same process. Here, it is not necessary to know the inter-frame phase-shifts. These inter-frame phase-shifts can vary arbitrarily. The main difference between the demodulation method presented here and the ones reported in 14, 15 and 17 is that our demodulation method is based on a regularization technique that is able to remove noise from its input and is robust to non constant modulation variations, which is an issue that introduces errors in the methods in works 14 and 15. Besides, we do not require to estimate the fringe orientation, as the method in work 17.
+\cite{a6,a1_OpticalTesting,a3,a2,a7}
+
+\section{Method}
+
+In general, an interferogram sequence with arbitrary inter-frame phase-shifts can be modeled as: 
+\begin{equation}\label{I_k1}
+I_{x,y}^k=a_{x,y}+b_{x,y}cos(\phi_{x,y}+\alpha_k), k=0,1,2,...,L-1,
+\end{equation}
+where $I_{x,y}^k$ is the intensity at the site $x,y$ of the $k$-interferogram in a sequence of $L-1$ interferograms, being $a_{x,y}$ its background illumination, $b_{x,y}$ its contrast, $\phi_{x,y}$ the modulating phase under test and $\alpha_k$ the phase-shift of the $k$-interferogram. 
+\subsection{Least-squares method}
+As we can see from Eq. (\ref{I_k1}), conventional phase-shifting algorithms assumes that the background illumination and the modulation amplitude do not have frame-to-frame variation; i.e., they are functions of pixels only. Defining a new set of variables as $\varphi_{x,y}=b_{x,y}cos(\phi_{x,y})$, $\psi_{x,y}=b_{x,y}sin(\phi_{x,y})$, $C_k=cos(\alpha_k)$, $S_k=sin(\alpha_k)$ we can express Eq. (\ref{I_k1}) as
+\begin{equation}\label{I_k2}
+I_{x,y}^k=a_{x,y}+\varphi_{x,y}C_k-\psi_{x,y}S_k, k=0,1,2,...,L-1.
+\end{equation}
+If we known $\alpha_k$, there are $3MN$(incluir que MxN es el tamanio de la imagen) unknowns. These unknowns can be solved using least-squares method. An energy function that described above can be written as
+\begin{equation}\label{ls_funtional}
+U(a_{x,y},\varphi_{x,y},\psi_{x,y})=\sum_{k=0}^{L-1} [a_{x,y}+\varphi_{x,y}C_k-\psi_{x,y}S_k-I_{x,y,k}^{'}]^2,
+\end{equation}
+where $I_{x,y,k}^{'}$ is the $k$-th experimentally measured intensity of the interferogram sequence. for the known $\alpha_k$, the least-squares criteria require to make zero the gradient of Eq. (\ref{ls_funtional}) as
+\begin{equation}\label{minimize_U}
+\nabla U(a_{x,y},\varphi_{x,y},\psi_{x,y})=0.
+\end{equation}
+Eq. (\ref{minimize_U}) yield
+\begin{equation}\label{x=AB}
+X = A^{-1} B,
+\end{equation}
+where
+\begin{equation}\label{A}
+A = \left[ \begin{array}{ccc}
+M\times N & \sum C_k     & \sum S_k \\
+\sum C_k  & \sum C_k^2   & \sum C_k S_k \\
+\sum S_k  & \sum S_k C_k & \sum S_k^2\end{array} \right],
+\end{equation}
+
+\begin{equation}\label{B}
+B = \left[ \begin{array}{ccc}
+\sum I_{x,y,k}^{'} & \sum I_{x,y,k}^{'} C_k & \sum I_{x,y,k}^{'} S_k \end{array} \right]^T,
+\end{equation}
+
+\begin{equation}\label{X}
+X = \left[ \begin{array}{ccc}
+a_{x,y} & \varphi_{x,y} & \psi_{x,y} \end{array} \right]^T,
+\end{equation}
+where the sum $\sum$ runs over $k=0,1,2,...,L-1$. To ensure that $A$ is nonsingular Eq. (\ref{x=AB}) requieres at least three different phase-steps $\alpha_k$.
+From Eqs. (\ref{A})-(\ref{X}) the phase $\phi$ at the point $x,y$ can be determined from
+
+\begin{equation}
+\phi_{x,y} = \arctan(-\psi_{x,y}/\varphi_{x,y}).
+\end{equation}
+Note that the inverse of A is performed only once because its components depend only on the steps $\alpha_k$.
+
+
+
+
+
+\section{Numerical Experiments and Results}
+\section{Conclutions}
+
+\bibliographystyle{plain}
+\bibliography{self-tuning}
+\end{document}
