@@ -13,7 +13,7 @@
 
 \maketitle
 
-\begin{abstract}In this work, we develop a regularization technique to demodulate a phase-shifting interferometry sequence with arbitrary inter-frame phase shifts. With this method, we can recover the modulating phase and inter-frame phase shifts in the same process. As all phase-shifting algorithms, the assumption is that the wave front under test does not change over time, but in this case the introduction of phase-shifts can vary in a non constant way. Another feature of this demodulation method is that it is able to find the modulated phase from interferograms with poor visibility since they have non constant background illumination in their fringes. This advantage is a significant improvement to the alredy published method advanced iterative algorithm (AIA), which is sencible to variations in the background illumination. To see the performance of the demodulation technique developed herein, we will show numerical experimental results and comparisons with the AIA method.
+\begin{abstract}In this work, we develop a regularization technique to demodulate a phase-shifting interferometry sequence with arbitrary inter-frame phase shifts. With this method, we can recover the modulating phase and inter-frame phase shifts in the same process. As all phase-shifting algorithms, the assumption is that the wave front under test does not change over time, but in this case the introduction of phase-shifts can vary in a non constant way. Another feature of this demodulation method is that it is able to find the modulated phase from interferograms with poor visibility since they have non constant background illumination in their fringes. This advantage is a significant improvement to the already published method advanced iterative algorithm (AIA), which is sensible to variations in the background illumination. To see the performance of the demodulation technique developed herein, we will show numerical experimental results and comparisons with the AIA method.
 \end{abstract}
 \ocis{120.0120, 120.3180, 120.3940, 120.5050, 120.2650, 050.5080}
 
@@ -25,13 +25,14 @@ In general, an interferogram sequence with arbitrary inter-frame phase-shifts ca
 \begin{equation}\label{I_k1}
 I_{x,y}^k=a_{x,y}+b_{x,y}cos(\phi_{x,y}+\alpha_k), k=0,1,2,...,L-1,
 \end{equation}
-where $I_{x,y}^k$ is the intensity at the site $x,y$ of the $k$-interferogram in a sequence of $L-1$ interferograms, being $a_{x,y}$ its background illumination, $b_{x,y}$ its contrast, $\phi_{x,y}$ the modulating phase under test and $\alpha_k$ the phase-shift of the $k$-interferogram. 
+where $I_{x,y}^k$ is the intensity at the site $x,y$ of the $k$-interferogram in a sequence of $L-1$ interferograms, being $a_{x,y}$ its background illumination, $b_{x,y}$ its contrast, $\phi_{x,y}$ the modulating phase under test and $\alpha_k$ the phase-shift of the $k$-interferogram.
+
 \subsection{Least-squares method}
 As we can see from Eq. (\ref{I_k1}), conventional phase-shifting algorithms assumes that the background illumination and the modulation amplitude do not have frame-to-frame variation; i.e., they are functions of pixels only. Defining a new set of variables as $\varphi_{x,y}=b_{x,y}cos(\phi_{x,y})$, $\psi_{x,y}=b_{x,y}sin(\phi_{x,y})$, $C_k=cos(\alpha_k)$, $S_k=sin(\alpha_k)$ we can express Eq. (\ref{I_k1}) as
 \begin{equation}\label{I_k2}
 I_{x,y}^k=a_{x,y}+\varphi_{x,y}C_k-\psi_{x,y}S_k, k=0,1,2,...,L-1.
 \end{equation}
-If we known $\alpha_k$, there are $3MN$(incluir que MxN es el tamanio de la imagen) unknowns. These unknowns can be solved using least-squares method. An energy cost function that described above can be written as
+If we known $\alpha_k$, there are $3MN$ unknowns (where $M$ and $N$ are the interferogram dimension). These unknowns can be solved using least-squares method. An energy cost function that described above can be written as
 \begin{equation}\label{ls_funtional}
 U(a_{x,y},\varphi_{x,y},\psi_{x,y})=\sum_{k=0}^{L-1} [a_{x,y}+\varphi_{x,y}C_k-\psi_{x,y}S_k-I_{x,y,k}^{'}]^2,
 \end{equation}
@@ -60,7 +61,7 @@ B = \left[ \begin{array}{ccc}
 X = \left[ \begin{array}{ccc}
 a_{x,y} & \varphi_{x,y} & \psi_{x,y} \end{array} \right]^T,
 \end{equation}
-where the sum $\sum$ runs over $k=0,1,2,...,L-1$. To ensure that $A$ is nonsingular Eq. (\ref{x=AB}) requieres at least three different phase-steps $\alpha_k$.
+where the sum $\sum$ runs over $k=0,1,2,...,L-1$. To ensure that $A$ is nonsingular Eq. (\ref{x=AB}) requires at least three different phase-steps $\alpha_k$.
 From Eqs. (\ref{A})-(\ref{X}) the phase $\phi$ at the point $x,y$ can be determined from
 
 \begin{equation}
@@ -68,16 +69,48 @@ From Eqs. (\ref{A})-(\ref{X}) the phase $\phi$ at the point $x,y$ can be determi
 \end{equation}
 Note that the inverse of A is performed only once because its components depend only on the steps $\alpha_k$.
 
-\subsection{robust self-tuning method}
+\subsection{Robust self-tuning method}
 To determine the steps we propose the following regularized cost functional
+\begin{eqnarray} \label{rst_functional}
+\left U(a_{x,y},C_{x,y}^k,S_{x,y}^k) & = & \sum_{x,y} \sum_{k=0}^{L-1} \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ a_{x,y}+\varphi_{x+m,y+n}C_{x,y}^k-\psi_{x+m,y+n}S_{x,y}^k-I_{x+m,y+n,k}^{'} \right] ^2 \nonumber \\
+& & {} + \sum_{x,y} \sum_{k=0}^{L-1} \left[ \lambda R_a[a_{x,y}] + \mu R_c[C_{x,y}^k] + \mu R_s[S_{x,y}^k] \right] ^2,
+\end{eqnarray}
+where $\lambda$ and $\mu$ are the regularization parameters that controls the smoothness of $a_{x,y}$, $C_{x,y}^k$ and $S_{x,y}^k$. Operators $R_a[]$, $R_c[]$ and $R_s[]$ takes the first order differences along $x$ and $y$ direction, as follows:
+
 \begin{equation}
-U(a_{x,y},C_{x,y}^k,S_{x,y}^k)=\sum_{x,y} \sum_{k=0}^{L-1} \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[a_{x,y}+\varphi_{x+m,y+n}C_{x,y}^k-\psi_{x+m,y+n}S_{x,y}^k-I_{x+m,y+n,k}^{'}\rigth]^2 + \lambda a_{x,y} + \miu C_{x,y}^k + \miu S_{x,y}^k,
+R_a[a_{x,y}] = a_{x,y}-a_{x-1,y}+a_{x,y}-a_{x,y-1},
+\end{equation}
+\begin{equation}
+R_c[C_{x,y}^k] = C_{x,y}^k-C_{x-1,y}^k+C_{x,y}^k-C_{x,y-1}^k,
+\end{equation}
+\begin{equation}
+R_s[S_{x,y}^k] = S_{x,y}^k-S_{x-1,y}^k+S_{x,y}^k-S_{x,y-1}^k.
+\end{equation}
+To find our unkown steps we need to minimize the cost functional in Eq \ref{rst_functional}. Equating to zero the partial gradient with respect to $a_{x,y}$, $C_{x,y}^k$ and $S_{x,y}^k$ and solving, we obtain a closed formula for computing the background illumination and the phase-shift steps, as follows:
+
+\begin{equation}
+a_{x,y} = \frac{ \sum_{k=0}^{L-1} \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ -\varphi_{x+m,y+n}C_{x,y}^k+\psi_{x+m,y+n}S_{x,y}^k+I_{x+m,y+n,k}^{'} \right] } { 9L - a_{x-1,y}-a_{x,y-1}},
 \end{equation}
 
+\begin{equation}\label{C_xy}
+C_{x,y}^k = \frac{ \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ -a_{x,y} \varphi_{x+m,y+n}+ \psi_{x+m,y+n} \varphi_{x+m,y+n} S_{x,y}^k + I_{x+m,y+n,k}^{'} \varphi_{x+m,y+n} \right] } { \sum_{m=-1}^{1} \sum_{n=-1}^{1} \varphi_{x+m,y+n}^2 -C_{x-1,y}^k-C_{x,y-1}^k },
+\end{equation}
 
+\begin{equation}\label{S_xy}
+S_{x,y}^k = \frac{ \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ a_{x,y} \psi_{x+m,y+n} + \psi_{x+m,y+n} \varphi_{x+m,y+n} C_{x,y}^k - I_{x+m,y+n,k}^{'} \psi_{x+m,y+n} \right] } { \sum_{m=-1}^{1} \sum_{n=-1}^{1} \psi_{x+m,y+n}^2 - S_{x-1,y}^k - S_{x,y-1}^k }.
+\end{equation}
+As we see from Eqs \ref{C_xy} and \ref{S_xy} we can comput the phase-shift in every site of each interferogram. Then to obtain the phase-shift step in each interferogram
+\begin{equation}
+\alpha_k = \arctan(-S_m^k/C_m^k),
+\end{equation}
+where $S_m^k$ and $C_m^k$ are the mode, most frequent value, calculated for each interferogram.
+Now, to determine the modulated phase we use the least squares method and the proposed method alternately until the values ​​of the phase-shifts converge to a desired value.
 
 \section{Numerical Experiments and Results}
-\section{Conclutions}
+
+\section{Conclusions}
+We have presented a regularized self-tuning phase-shifting demodulation method for interferogram sequences having arbitrary variations of the inter-frame phase-shifts. This method is robust to non constant background illumination. As shown in the results, our demodulation method is able to recover the modulating phase and the inter-frame phase-shifts with a minimum error. The demodulation method presented here provides stable convergence and accurate phase demodulation with as few as three interferograms, even when the phase-shifts are completely random.
+
 
 \bibliographystyle{plain}
 \bibliography{rst.bib}
