@@ -1,7 +1,7 @@
 \documentclass[letterpaper,12pt]{article}   %% LaTeX 2e (preferred)
 \usepackage{osajnl2} %% do not use with REVTeX4
 \usepackage[draft]{hyperref} %% optional
-\usepackage{subfigure}
+%%\usepackage{subfigure}
 
 
 \begin{document}
@@ -70,14 +70,15 @@ From Eqs. (\ref{A})-(\ref{X}) the phase $\phi$ at the point $x,y$ can be determi
 \end{equation}
 Note that the inverse of A is performed only once because its components depend only on the steps $\alpha_k$.
 
+%%----------------------------------------------------------------------------------------
 \subsection{Robust self-tuning method}
+
 To determine the steps we propose the following regularized cost functional
 \begin{eqnarray} \label{rst_functional}
 \left U(a_{x,y},C_{x,y}^k,S_{x,y}^k) & = & \sum_{x,y} \sum_{k=0}^{L-1} \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ a_{x,y}+\varphi_{x+m,y+n}C_{x,y}^k-\psi_{x+m,y+n}S_{x,y}^k-I_{x+m,y+n,k}^{'} \right] ^2 \nonumber \\
 & & {} + \sum_{x,y} \sum_{k=0}^{L-1} \left[ \lambda R_a[a_{x,y}] + \mu R_c[C_{x,y}^k] + \mu R_s[S_{x,y}^k] \right] ^2,
 \end{eqnarray}
 where $\lambda$ and $\mu$ are the regularization parameters that controls the smoothness of $a_{x,y}$, $C_{x,y}^k$ and $S_{x,y}^k$. Operators $R_a[]$, $R_c[]$ and $R_s[]$ takes the first order differences along $x$ and $y$ direction, as follows:
-
 \begin{equation}
 R_a[a_{x,y}] = a_{x,y}-a_{x-1,y}+a_{x,y}-a_{x,y-1},
 \end{equation}
@@ -107,9 +108,10 @@ As we see from Eqs \ref{C_xy} and \ref{S_xy} we can comput the phase-shift in ev
 where $S_m^k$ and $C_m^k$ are the mode, most frequent value, calculated for each interferogram.
 Now, to determine the modulated phase we use the least squares method and the proposed method alternately until the values ​​of the phase-shifts converge to a desired value.
 
+
 \section{Numerical Experiments and Results}
 
-\begin{figure}[th]
+\begin{figure}[t]
 	\begin{center}
 		\subfigure[I_0]{\label{fig:I-1} \includegraphics[scale=0.20]{Interferograma.png}}
 		\subfigure[I_1]{\label{fig:I-2} \includegraphics[scale=0.20]{Interferograma2.png}}
@@ -121,7 +123,7 @@ Now, to determine the modulated phase we use the least squares method and the pr
 	\label{fig:Interferograms}
 \end{figure}
 
-To test the robust self tuning algorithm developed here, we simulated $50$ interferogram sequences with different temporal frequecies. Each sequence has five interferograms. An example of these interferogram sequences is shown in Fig.(INCLUIR FIGURA). These simulated interferograms have poor fringe visibility since we have added a non constant background illumination and contrast.  To reproduce the interferogram sequences that we used in these tests, the reader can use the Eq. \ref{I_k1} wiht the following parameters:
+To test the robust self tuning algorithm developed here, we simulated $50$ interferogram sequences with different temporal frequecies. Each sequence has five interferograms. An example of these interferogram sequences is shown in Fig.\ref{fig:Interferograms} . These simulated interferograms have poor fringe visibility since we have added a non constant background illumination and contrast.  To reproduce the interferogram sequences that we used in these tests, the reader can use the Eq. \ref{I_k1} wiht the following parameters:
 \begin{equation}
 	a_{x,y}=-\frac{(x-256)^2+(y-256)^2}{1.5259x10^{-5}},
 \end{equation}
@@ -137,17 +139,9 @@ and
 \end{equation}
 where $\eta_k$ is a random number whit mean zero and variance of 0.5 that chages for each interferogram. 
 In our numerical experiments we start always the temporal carrier $\alpha_k=0,1,..,5$. Regularization parameters $\lambda$ and $\mu$ were set at 100 and 500 respectively (see Eq. \ref{rst_functional}). Using the Gauss-Seidel method to find the phase-steps (Eqs. 14 15 and 16) were required 50 iterations. Finally, for estimating the phase in the AIA and our proposed method were required 20 iterations.
-\begin{figure}[th]
-	\begin{center}
-		\subfigure{\label{fig:phase-a} \includegraphics[scale=0.40]{faseRST.png}}{Phase RST}
-		\subfigure{\label{fig:phase-b} \includegraphics[scale=0.40]{faseAIA.png}}{Phase AIA}
-	\end{center}
-	\caption{Phase Comparison} 
-	\label{fig:phase}
-\end{figure}
 
 
-In Table. \ref{error_table} , we show the errors values of the estimated phase-shifts using our regularized method and the estimated using the AIA method. This errors are calculated as $|\alpha_k - \hat{ \alpha }_k }|$, where $\alpha_k$ and $\hat{\alpha}_k$ are the values of the actual and estimated phase-shifts for the $k-$frame, respectively. On the other hand, in Fig. (AGREGAR FIGURA DE FASES OBTENIDAS), we show the recovered phase. In Fig. 1(A) is shown the recovered phase using the regularized self-tuning demodulation method presented here, while in Fig. 1(B) is shown the recovered phase using the AIA method. We can see in this figure that our proposed regularized self-tuning demodulation method recovers the phase with less error than with the AIA method. The errors shown in Fig. 1.(A) and Fig. 1.(B) are calculated as the variance between the recovered phase map and the true phase map used to generate the interferograms.
+In Table. \ref{error_table} , we show the errors values of the estimated phase-shifts using our regularized method and the estimated using the AIA method. This errors are calculated as $|\alpha_k - \hat{ \alpha }_k }|$, where $\alpha_k$ and $\hat{\alpha}_k$ are the values of the actual and estimated phase-shifts for the $k-$frame, respectively. On the other hand, in Fig. \ref{fig:phase} , we show the recovered phase. In Fig. \ref{fig:phase}(a) is shown the recovered phase using the regularized self-tuning demodulation method presented here, while in Fig. \ref{fig:phase}(b) is shown the recovered phase using the AIA method. We can see in this figure that our proposed regularized self-tuning demodulation method recovers the phase with less error than with the AIA method. The errors shown in Fig. \ref{fig:phase}(a) and Fig. \ref{fig:phase}(b) are calculated as the variance between the recovered phase map and the true phase map used to generate the interferograms.
 \begin{table}
 	\begin{center}
 		\begin{tabular}{|l|l|l|l|}
@@ -162,6 +156,30 @@ In Table. \ref{error_table} , we show the errors values of the estimated phase-s
 		\end{tabular}
 	\end{center}
 	\caption{Numerical results. Comparison between the phase-shift estimation and the actual phase-shift for the AIA and the proposed method, and the phase-shift average error.} 
+	\label{error_table}
+\end{table}
+
+\begin{figure}[t]
+	\begin{center}
+		\subfigure{\label{fig:phase-a} \includegraphics[scale=0.40]{faseRST.png}}{(a) RST Phase error = 7.0570x10^{-6} }\\
+		\subfigure{\label{fig:phase-b} \includegraphics[scale=0.40]{faseAIA.png}}{(b) AIA Phase error =  0.0608}
+	\end{center}
+	\caption{Phase Comparison.(a) shows the recovered phase and error using the regularized self-tuning (RST) method proposed here. (b)  shows the recovered phase and error using the AIA method. The error shown (in radians) is the variance respecting the true phase map. The interferogram frames has a size of 512 x 512.}
+	\label{fig:phase}
+\end{figure}
+Finally, Table 2 shows the average error of 50 iteration, with the same parameters listed above. As seen from these results, the proposed method is better than the AIA.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|}
+		\hline
+		            & AIA    & RST 	    \\ \hline \hline
+		Step-error  & 0.1902 & 0.0153	\\ \hline
+		Phase-error & 4.57x10^{-2} & 5.11x10^{-5} \\ \hline
+		
+		\end{tabular}
+	\end{center}
+	\caption{This table compares the average error obtained in 50 random tests for the proposed method and the AIA method. The first row shows the average error of estimated steps, while the second shows the variance between the estimated phase map and the used to generate the sequence of interferograms.} 
 	\label{error_table}
 \end{table}
 
