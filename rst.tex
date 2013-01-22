@@ -2,14 +2,17 @@
 \usepackage{osajnl2} %% do not use with REVTeX4
 \usepackage[draft]{hyperref} %% optional
 %%\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 
 
 \begin{document}
 
-\title{Robust Self Tuning algorithm for phase shifting interferometry; an improvement to the advanced iterative algorithm}
-\author{O. Medina,$^{1,*}$ J. C. Estra,$^{1}$ and M. Servin,$^{1}$}
-\address{$^1$Centro de Investigaciones en \'{O}ptica A. C., Loma del bosque 115, Col. Lomas del Campestre, Le\'{o}n Guanajuato,
-37150, M\'{e}xico}
+\title{Robust self-tuning algorithm for phase shifting interferometry; an improvement to the advanced iterative algorithm}
+\author{O. Medina,$^{1,*}$ J. C. Estrada,$^{1}$ and M. Servin,$^{1}$}
+\address{$^1$Centro de Investigaciones en Optica A. C., Loma del bosque 115, Col. Lomas del Campestre, Leon Guanajuato,
+37150, Mexico}
 \address{$^*$Corresponding author: orlandomedina@cio.mx}
 
 \maketitle
@@ -149,7 +152,7 @@ In Table. \ref{error_table} , we show the errors values of the estimated phase-s
 	\begin{center}
 		\begin{tabular}{|l|l|l|l|}
 		\hline
-		 Steps   & Real   & AIA    & RST 	\\ \hline \hline
+		 Steps   & Actual   & AIA    & RST 	\\ \hline \hline
 		\alpha_0 & 	0	  & 0 	   & 0		\\ \hline
 		\alpha_1 & 1.6953 &	2.2511 & 1.6994	\\ \hline
 		\alpha_2 & 0.6961 &	0.6284 & 0.6769	\\ \hline
@@ -159,13 +162,29 @@ In Table. \ref{error_table} , we show the errors values of the estimated phase-s
 		\end{tabular}
 	\end{center}
 	\caption{Numerical results. Comparison between the phase-shift estimation and the actual phase-shift for the AIA and the proposed method, and the phase-shift average error.} 
-	\label{error_table}
+	\label{Tab:step-error}
 \end{table}
+
+\begin{figure}
+	\centering
+    \begin{subfigure}
+    		\centering
+        \includegraphics[scale=0.40]{figures/faseRST.png}
+        \caption{A gull}
+        \label{fig:gull}
+	\end{subfigure}%
+	\caption{Pictures of animals}
+\end{figure}
+
 
 \begin{figure}[htp]
 	\begin{center}
-		\subfigure{\label{fig:phase-a} \includegraphics[scale=0.40]{faseRST.png}}{(a) RST Phase error = 7.0570x10^{-6}. }\\
-		\subfigure{\label{fig:phase-b} \includegraphics[scale=0.40]{faseAIA.png}}{(b) AIA Phase error =  0.0608.}
+	\centering
+		\begin{subfigure}(b){0.3\textwidth}
+			\includegraphics[scale=0.5]{figures/faseRST.png}
+		\end{subfigure}
+		\subfigure{\label{fig:phase-a} \includegraphics[scale=0.40]{figures/faseRST.png}}{(a) RST Phase error = 7.0570x10^{-6}. }\\
+		\subfigure{\label{fig:phase-b} \includegraphics[scale=0.40]{figures/faseAIA.png}}{(b) AIA Phase error =  0.0608.}
 	\end{center}
 	\caption{Phase Comparison.(a) shows the recovered phase and error using the regularized self-tuning (RST) method proposed here. (b)  shows the recovered phase and error using the AIA method. The error shown (in radians) is the variance respecting the true phase map. The interferogram frames has a size of 512 x 512.}
 	\label{fig:phase}
@@ -183,7 +202,7 @@ Finally, Table 2 shows the average error of 50 iteration, with the same paramete
 		\end{tabular}
 	\end{center}
 	\caption{This table compares the average error obtained in 50 random tests for the proposed method and the AIA method. The first row shows the average error of estimated steps, while the second shows the variance between the estimated phase map and the used to generate the sequence of interferograms.} 
-	\label{error_table}
+	\label{Tab:mean-phase_error}
 \end{table}
 
 \section{Conclusions}
