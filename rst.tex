@@ -1,6 +1,7 @@
 \documentclass[letterpaper,12pt]{article}   %% LaTeX 2e (preferred)
 \usepackage{osajnl2} %% do not use with REVTeX4
 \usepackage[draft]{hyperref} %% optional
+\usepackage{subfigure}
 
 
 \begin{document}
@@ -23,14 +24,14 @@ Nowadays, Phase Shifting Interferometry (PSI) techniques are some of the most us
 
 In general, an interferogram sequence with arbitrary inter-frame phase-shifts can be modeled as: 
 \begin{equation}\label{I_k1}
-I_{x,y}^k=a_{x,y}+b_{x,y}cos(\phi_{x,y}+\alpha_k), k=0,1,2,...,L-1,
+I_{x,y}^k=a_{x,y}+b_{x,y}cos(\phi_{x,y}+\alpha_k),\: k=0,1,2,...,L-1,
 \end{equation}
 where $I_{x,y}^k$ is the intensity at the site $x,y$ of the $k$-interferogram in a sequence of $L-1$ interferograms, being $a_{x,y}$ its background illumination, $b_{x,y}$ its contrast, $\phi_{x,y}$ the modulating phase under test and $\alpha_k$ the phase-shift of the $k$-interferogram.
 
 \subsection{Least-squares method}
 As we can see from Eq. (\ref{I_k1}), conventional phase-shifting algorithms assumes that the background illumination and the modulation amplitude do not have frame-to-frame variation; i.e., they are functions of pixels only. Defining a new set of variables as $\varphi_{x,y}=b_{x,y}cos(\phi_{x,y})$, $\psi_{x,y}=b_{x,y}sin(\phi_{x,y})$, $C_k=cos(\alpha_k)$, $S_k=sin(\alpha_k)$ we can express Eq. (\ref{I_k1}) as
 \begin{equation}\label{I_k2}
-I_{x,y}^k=a_{x,y}+\varphi_{x,y}C_k-\psi_{x,y}S_k, k=0,1,2,...,L-1.
+I_{x,y}^k=a_{x,y}+\varphi_{x,y}C_k-\psi_{x,y}S_k,\: k=0,1,2,...,L-1.
 \end{equation}
 If we known $\alpha_k$, there are $3MN$ unknowns (where $M$ and $N$ are the interferogram dimension). These unknowns can be solved using least-squares method. An energy cost function that described above can be written as
 \begin{equation}\label{ls_funtional}
@@ -107,11 +108,65 @@ where $S_m^k$ and $C_m^k$ are the mode, most frequent value, calculated for each
 Now, to determine the modulated phase we use the least squares method and the proposed method alternately until the values ​​of the phase-shifts converge to a desired value.
 
 \section{Numerical Experiments and Results}
-To obtain the results presented here, the minimization process described here made $500$ iterations to reach a relative convergence error of $1.322x10^{-4}$
+
+\begin{figure}[th]
+	\begin{center}
+		\subfigure[I_0]{\label{fig:I-1} \includegraphics[scale=0.20]{Interferograma.png}}
+		\subfigure[I_1]{\label{fig:I-2} \includegraphics[scale=0.20]{Interferograma2.png}}
+		\subfigure[I_2]{\label{fig:I-3} \includegraphics[scale=0.20]{Interferograma3.png}}
+		\subfigure[I_3]{\label{fig:I-4} \includegraphics[scale=0.20]{Interferograma4.png}}
+		\subfigure[I_4]{\label{fig:I-5} \includegraphics[scale=0.20]{Interferograma5.png}}
+	\end{center}
+	\caption{Interferogram sequence used for testing the algorithm} 
+	\label{fig:Interferograms}
+\end{figure}
+
+To test the robust self tuning algorithm developed here, we simulated $50$ interferogram sequences with different temporal frequecies. Each sequence has five interferograms. An example of these interferogram sequences is shown in Fig.(INCLUIR FIGURA). These simulated interferograms have poor fringe visibility since we have added a non constant background illumination and contrast.  To reproduce the interferogram sequences that we used in these tests, the reader can use the Eq. \ref{I_k1} wiht the following parameters:
+\begin{equation}
+	a_{x,y}=-\frac{(x-256)^2+(y-256)^2}{1.5259x10^{-5}},
+\end{equation}
+\begin{equation}
+	b_{x,y}=e^{-\frac{(x-256)^2+(y-256)^2}{100^{2}},
+\end{equation}
+\begin{equation}
+	\phi_{x,y}= 30(-1+\frac{x}{2}-x^5-y^3) e^{(-x^2-y^2)}+\frac{4\pi x}{512}+\frac{4\pi y}{512}
+\end{equation}
+and
+\begin{equation}
+	\alpha_k = k\frac{\pi}{3}+\eta_k,\: k=0,1,..,5,
+\end{equation}
+where $\eta_k$ is a random number whit mean zero and variance of 0.5 that chages for each interferogram. 
+In our numerical experiments we start always the temporal carrier $\alpha_k=0,1,..,5$. Regularization parameters $\lambda$ and $\mu$ were set at 100 and 500 respectively (see Eq. \ref{rst_functional}). Using the Gauss-Seidel method to find the phase-steps (Eqs. 14 15 and 16) were required 50 iterations. Finally, for estimating the phase in the AIA and our proposed method were required 20 iterations.
+\begin{figure}[th]
+	\begin{center}
+		\subfigure{\label{fig:phase-a} \includegraphics[scale=0.40]{faseRST.png}}{Phase RST}
+		\subfigure{\label{fig:phase-b} \includegraphics[scale=0.40]{faseAIA.png}}{Phase AIA}
+	\end{center}
+	\caption{Phase Comparison} 
+	\label{fig:phase}
+\end{figure}
+
+
+In Table. \ref{error_table} , we show the errors values of the estimated phase-shifts using our regularized method and the estimated using the AIA method. This errors are calculated as $|\alpha_k - \hat{ \alpha }_k }|$, where $\alpha_k$ and $\hat{\alpha}_k$ are the values of the actual and estimated phase-shifts for the $k-$frame, respectively. On the other hand, in Fig. (AGREGAR FIGURA DE FASES OBTENIDAS), we show the recovered phase. In Fig. 1(A) is shown the recovered phase using the regularized self-tuning demodulation method presented here, while in Fig. 1(B) is shown the recovered phase using the AIA method. We can see in this figure that our proposed regularized self-tuning demodulation method recovers the phase with less error than with the AIA method. The errors shown in Fig. 1.(A) and Fig. 1.(B) are calculated as the variance between the recovered phase map and the true phase map used to generate the interferograms.
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|l|}
+		\hline
+		 Steps   & Real   & AIA    & RST 	\\ \hline \hline
+		\alpha_0 & 	0	  & 0 	   & 0		\\ \hline
+		\alpha_1 & 1.6953 &	2.2511 & 1.6994	\\ \hline
+		\alpha_2 & 0.6961 &	0.6284 & 0.6769	\\ \hline
+		\alpha_3 & 3.3038 &	3.2427 & 3.3031	\\ \hline
+		\alpha_4 & 4.0793 &	4.2983 & 4.0678	\\ \hline
+		e^{ave}  &        & 0.1807 & 0.0071 \\ \hline
+		\end{tabular}
+	\end{center}
+	\caption{Numerical results. Comparison between the phase-shift estimation and the actual phase-shift for the AIA and the proposed method, and the phase-shift average error.} 
+	\label{error_table}
+\end{table}
 
 \section{Conclusions}
 We have presented a regularized self-tuning phase-shifting demodulation method for interferogram sequences having arbitrary variations of the inter-frame phase-shifts. This method is robust to non constant background illumination. As shown in the results, our demodulation method is able to recover the modulating phase and the inter-frame phase-shifts with a minimum error. The demodulation method presented here provides stable convergence and accurate phase demodulation with as few as three interferograms, even when the phase-shifts are completely random.
-
 
 \bibliographystyle{plain}
 \bibliography{rst.bib}
