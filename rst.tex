@@ -19,7 +19,11 @@
 \ocis{120.0120, 120.3180, 120.3940, 120.5050, 120.2650, 050.5080}
 
 \section{Introduction}
-Nowadays, Phase Shifting Interferometry (PSI) techniques are some of the most used techniques in optical metrology \cite{a1_OpticalTesting}.1 In PSI, one obtains an small sequence of at least 3 interferograms with a phase-shift among them \cite{a1_OpticalTesting}.1 To recover the modulating phase, there are standard demodulation PSI methods, the well known 3-, 4-, and 5- step phase-shifting algorithms. Knowing the inter-frame phase-shifts (or temporal carrier), the standard methods recover the 2$\pi$ modulus phase map with the minimum possible error \cite{a1_OpticalTesting,a2_F&K,a3}.1-3 If we do not know the phase-shifts exactly, we obtain a phase map with an unavoidable detuning error whose magnitude depends on the number of interferograms employed and on how far we are from the actual phase-shifts \cite{a3,a4,a5,a6}.3-6 This unfortunate case can occur when the optical interferometer setup is uncalibrated or when perturbations from the environment affect the interferometer's optical path. For example, for most phase shifters, such as a piezoelectric (PZT), there is a repeatability problem arising from hysteresis, non linearity and temperature linear drift \cite{a5,a7};5,7 curiously, the first phase-shifting algorithms were self-tuning nonlinear algorithms \cite{a8,a9}. 8,9 To reduce detuning errors, other approaches propose error compensating algorithms that basically use redundant data, such as the Schwider-Hariharan 5- step algorithm, \cite{a4,a10,a11} 4, 10, 11 and more recently, the 9-step algorithm shown in Ref. \cite{a12}12 has been used to do it by constructing a wide-band frequency response of the phase-shifting algorithm. Further methods use the Fourier transform in order to estimate the inter-frame phase-shifts, and others are based on the least-squares scheme, iteratively estimating the inter-frame phase-shifts and phase \cite{a13,a14}. 13,14 Ref. \cite{a16}16 presentes an approach that estimates the local temporal carrier (the phase-shift) as the average of the phase difference between two consecutive phase maps obtained from two realizations of the tunable 3-step algorithm. What we are going to show in this work is a regularized self-tuning demodulation technique that obtains the analytical image (complex interferogram) and inter-frame phase-shifts from an interferogram sequence. Thus, we can recover the modulating phase 2$\pi$ modulus and the inter-frame phase shifts in the same process. Here, it is not necessary to know the inter-frame phase-shifts. These inter-frame phase-shifts can vary arbitrarily. The main difference between the demodulation method presented here and the ones reported in  \cite{a14}14,\cite{a15}15 and \cite{a17}17 is that our demodulation method is based on a regularization technique that is able to remove noise from its input and is robust to non constant modulation variations, which is an issue that introduces errors in the methods in works \cite{a14} 14 and \cite{a15}15. Besides, we do not require to estimate the fringe orientation, as the method in work \cite{a17}17.
+Nowadays, Phase Shifting Interferometry (PSI) techniques are some of the most used techniques in optical metrology \cite{a1_OpticalTesting}. In PSI, one obtains an small sequence of at least 3 interferograms with a phase-shift among them \cite{a1_OpticalTesting}. To recover the modulating phase, there are standard demodulation PSI methods, the well known 3-, 4-, and 5- step phase-shifting algorithms. Knowing the inter-frame phase-shifts (or temporal carrier), the standard methods recover the 2$\pi$ modulus phase map with the minimum possible error \cite{a1_OpticalTesting,a2_F&K,a3}. If we do not know the phase-shifts exactly, we obtain a phase map with an unavoidable detuning error whose magnitude depends on the number of interferograms employed and on how far we are from the actual phase-shifts \cite{a3,a4,a5,a6}. This unfortunate case can occur when the optical interferometer setup is uncalibrated or when perturbations from the environment affect the interferometer's optical path. For example, for most phase shifters, such as a piezoelectric (PZT), there is a repeatability problem arising from hysteresis, non linearity and temperature linear drift \cite{a5,a7}; curiously, the first phase-shifting algorithms were self-tuning nonlinear algorithms \cite{a8,a9}. To reduce detuning errors, other approaches propose error compensating algorithms that basically use redundant data, such as the Schwider-Hariharan 5- step algorithm, \cite{a4,a10,a11} and more recently, the 9-step algorithm shown in Ref. \cite{a12} has been used to do it by constructing a wide-band frequency response of the phase-shifting algorithm. Further methods use the Fourier transform in order to estimate the inter-frame phase-shifts, and others are based on the least-squares scheme, iteratively estimating the inter-frame phase-shifts and phase \cite{a13,a14}. Ref. \cite{a16} presentes an approach that estimates the local temporal carrier (the phase-shift) as the average of the phase difference between two consecutive phase maps obtained from two realizations of the tunable 3-step algorithm. What we are going to show in this work is a regularized self-tuning demodulation technique that obtains the analytical image (complex interferogram) and inter-frame phase-shifts from an interferogram sequence. Thus, we can recover the modulating phase 2$\pi$ modulus and the inter-frame phase shifts in the same process. Here, it is not necessary to know the inter-frame phase-shifts. These inter-frame phase-shifts can vary arbitrarily.
+
+The main difference between the demodulation method presented here and the ones reported in  \cite{a14},\cite{a15} and \cite{a17} is that our demodulation method is based on a regularization technique that is robust to non constant modulation variations and non constant background illumination, which is an issue that introduces errors in the methods in works \cite{a14} and \cite{a15}. Besides, we do not require to estimate the fringe orientation, as the method in work \cite{a17}.
+
+
 \section{Method}
 
 In general, an interferogram sequence with arbitrary inter-frame phase-shifts can be modeled as: 
@@ -74,36 +78,35 @@ Note that the inverse of A is performed only once because its components depend 
 \subsection{Robust self-tuning method}
 
 To determine the steps we propose the following regularized cost functional
+
 \begin{eqnarray} \label{rst_functional}
-\left U(a_{x,y},C_{x,y}^k,S_{x,y}^k) & = & \sum_{x,y} \sum_{k=0}^{L-1} \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ a_{x,y}+\varphi_{x+m,y+n}C_{x,y}^k-\psi_{x+m,y+n}S_{x,y}^k-I_{x+m,y+n,k}^{'} \right] ^2 \nonumber \\
-& & {} + \sum_{x,y} \sum_{k=0}^{L-1} \left[ \lambda R_a[a_{x,y}] + \mu R_c[C_{x,y}^k] + \mu R_s[S_{x,y}^k] \right] ^2,
+	\left U(a_{x,y},C_{x,y}^k,S_{x,y}^k) & = & \sum_{x,y} \sum_{k=0}^{L-1} \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[a_{x,y}+\varphi_{x+m,y+n}C_{x,y}^k-\psi_{x+m,y+n}S_{x,y}^k-I_{x+m,y+n,k}^{'} \right] ^2 \nonumber \\
+& & {} + \sum_{x,y} \sum_{k=0}^{L-1} \left[ \lambda \frac{\nabla[a_{x,y}]}{L} + \mu \nabla[C_{x,y}^k] + \mu \nabla[S_{x,y}^k] \right] ^2,
 \end{eqnarray}
-where $\lambda$ and $\mu$ are the regularization parameters that controls the smoothness of $a_{x,y}$, $C_{x,y}^k$ and $S_{x,y}^k$. Operators $R_a[]$, $R_c[]$ and $R_s[]$ takes the first order differences along $x$ and $y$ direction, as follows:
-\begin{equation}
-R_a[a_{x,y}] = a_{x,y}-a_{x-1,y}+a_{x,y}-a_{x,y-1},
-\end{equation}
-\begin{equation}
-R_c[C_{x,y}^k] = C_{x,y}^k-C_{x-1,y}^k+C_{x,y}^k-C_{x,y-1}^k,
-\end{equation}
-\begin{equation}
-R_s[S_{x,y}^k] = S_{x,y}^k-S_{x-1,y}^k+S_{x,y}^k-S_{x,y-1}^k.
-\end{equation}
-To find our unkown steps we need to minimize the cost functional in Eq \ref{rst_functional}. Equating to zero the partial gradient with respect to $a_{x,y}$, $C_{x,y}^k$ and $S_{x,y}^k$ and solving, we obtain a closed formula for computing the background illumination and the phase-shift steps, as follows:
+
+where $\lambda$ and $\mu$ are the regularization parameters that controls the smoothness of $a_{x,y}$, $C_{x,y}^k$ and $S_{x,y}^k$. Operator $\nabla[*]$ takes the first order differences along $x$ and $y$ direction, as follows:
 
 \begin{equation}
-a_{x,y} = \frac{ \sum_{k=0}^{L-1} \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ -\varphi_{x+m,y+n}C_{x,y}^k+\psi_{x+m,y+n}S_{x,y}^k+I_{x+m,y+n,k}^{'} \right] } { 9L - a_{x-1,y}-a_{x,y-1}},
+	\nabla[f_{x,y}] = [a_{x,y}-a_{x-1,y},a_{x,y}-a_{x,y-1}]^T.
+\end{equation}
+
+To find our unkown steps we need to minimize the cost functional in Eq \ref{rst_functional}. Equating to zero the partial gradient with respect to $a_{x,y}$, $C_{x,y}^k$ and $S_{x,y}^k$ and solving, we obtain a closed formula for iterative computing the background illumination and the phase-shift steps, as follows:
+
+\begin{equation}
+	a_{x,y} = \frac{ \sum_{k=0}^{L-1} \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[\\ 																	-\varphi_{x+m,y+n}C_{x,y}^k+\psi_{x+m,y+n}S_{x,y}^k+I_{x+m,y+n,k}^{'} \right] } { 9L - a_{x-1,y}-a_{x,y-1}},
 \end{equation}
 
 \begin{equation}\label{C_xy}
-C_{x,y}^k = \frac{ \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ -a_{x,y} \varphi_{x+m,y+n}+ \psi_{x+m,y+n} \varphi_{x+m,y+n} S_{x,y}^k + I_{x+m,y+n,k}^{'} \varphi_{x+m,y+n} \right] } { \sum_{m=-1}^{1} \sum_{n=-1}^{1} \varphi_{x+m,y+n}^2 -C_{x-1,y}^k-C_{x,y-1}^k },
+	C_{x,y}^k = \frac{ \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ -a_{x,y} \varphi_{x+m,y+n}+ \psi_{x+m,y+n} \varphi_{x+m,y+n} S_{x,y}^k +\\ 		I_{x+m,y+n,k}^{'} \varphi_{x+m,y+n} \right] } { \sum_{m=-1}^{1} \sum_{n=-1}^{1} \varphi_{x+m,y+n}^2 -C_{x-1,y}^k-C_{x,y-1}^k },
 \end{equation}
 
 \begin{equation}\label{S_xy}
-S_{x,y}^k = \frac{ \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ a_{x,y} \psi_{x+m,y+n} + \psi_{x+m,y+n} \varphi_{x+m,y+n} C_{x,y}^k - I_{x+m,y+n,k}^{'} \psi_{x+m,y+n} \right] } { \sum_{m=-1}^{1} \sum_{n=-1}^{1} \psi_{x+m,y+n}^2 - S_{x-1,y}^k - S_{x,y-1}^k }.
+	S_{x,y}^k = \frac{ \sum_{m=-1}^{1} \sum_{n=-1}^{1} \left[ a_{x,y} \psi_{x+m,y+n} + \psi_{x+m,y+n} \varphi_{x+m,y+n} C_{x,y}^k - 			I_{x+m,y+n,k}^{'} \psi_{x+m,y+n} \right] } { \sum_{m=-1}^{1} \sum_{n=-1}^{1} \psi_{x+m,y+n}^2 - S_{x-1,y}^k - S_{x,y-1}^k }.
 \end{equation}
+
 As we see from Eqs \ref{C_xy} and \ref{S_xy} we can comput the phase-shift in every site of each interferogram. Then to obtain the phase-shift step in each interferogram
 \begin{equation}
-\alpha_k = \arctan(-S_m^k/C_m^k),
+	\alpha_k = \arctan(-S_m^k/C_m^k),
 \end{equation}
 where $S_m^k$ and $C_m^k$ are the mode, most frequent value, calculated for each interferogram.
 Now, to determine the modulated phase we use the least squares method and the proposed method alternately until the values ​​of the phase-shifts converge to a desired value.
@@ -159,10 +162,10 @@ In Table. \ref{error_table} , we show the errors values of the estimated phase-s
 	\label{error_table}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[htp]
 	\begin{center}
-		\subfigure{\label{fig:phase-a} \includegraphics[scale=0.40]{faseRST.png}}{(a) RST Phase error = 7.0570x10^{-6} }\\
-		\subfigure{\label{fig:phase-b} \includegraphics[scale=0.40]{faseAIA.png}}{(b) AIA Phase error =  0.0608}
+		\subfigure{\label{fig:phase-a} \includegraphics[scale=0.40]{faseRST.png}}{(a) RST Phase error = 7.0570x10^{-6}. }\\
+		\subfigure{\label{fig:phase-b} \includegraphics[scale=0.40]{faseAIA.png}}{(b) AIA Phase error =  0.0608.}
 	\end{center}
 	\caption{Phase Comparison.(a) shows the recovered phase and error using the regularized self-tuning (RST) method proposed here. (b)  shows the recovered phase and error using the AIA method. The error shown (in radians) is the variance respecting the true phase map. The interferogram frames has a size of 512 x 512.}
 	\label{fig:phase}
