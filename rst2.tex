@@ -177,13 +177,32 @@ illustrated in Fig. \ref{fig:subregions}.
 \begin{figure}
   \centering
   \includegraphics[width=4cm]{regions.eps}
-  \caption{Subregion division of interferogram frame. In practice, an
-    interferogram frame is divided into $N$ subregions where each
-    subregion has the same size.\label{fig:subregions}}
+  \caption{Subregion division of an interferogram frame. In practice,
+    an interferogram frame is divided into $N$ subregions where each
+    subregion has the same size. Here it is illustrated the division
+    for $N=9$.\label{fig:subregions}}
 \end{figure}
-Then system two is applied to each subregion independently in such a
-way that we are going to have $N$ estimations of the background
-illumination and cuadrature components for the phase-shifts.
+Then, the system two is independently applied to each subregion in
+such a way that we are going to have a set $\mathbf{S}$ of $N$
+estimations. The element $n$ of this set of estimations $\mathbf{S}$
+is the background illumination and cuadrature components obtained for
+subregion $R_n$. Let us call $^na_k$, $^nC_k$ and $^nS_k$ to the
+components of the $n$-element of set $\mathbf{S}$. The local
+phase-shift of the subregion $R_n$ is:
+\begin{equation}
+  ^n\delta_k = \arctan\left[-\frac{^nS_k}{^nC_k}\right].
+\end{equation}
+There are two estimators that we can take to obtain the global
+phase-shift of the $k$-interferogram:
+\begin{itemize}
+\item[1.-] The mean:
+  \begin{equation}
+    \hat\delta_k = \frac{1}{N} \sum_{n=0}^{N-1} {^n\delta_k}
+  \end{equation}
+\item[2.-] and the mode: The most frequent value of the set $\{
+  {^n\delta_k}: n=0,1,2,\dots,N-1 \}$.
+\end{itemize}
+
 
 \bibliographystyle{plain} \bibliography{rst.bib}
 \end{document}
