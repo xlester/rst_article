@@ -171,8 +171,19 @@ Eq. \eqref{eq:ls-steps} is more restrictive since as stated in
 Eq. \eqref{eq:I_k1}, we can not expect a constant background
 illuminations of the interferogram frame.
 
-For being more accurate the system two (Eq. \eqref{eq:ls-steps}) while
-estimating, for the $n$-subregion.
+For being more accurate with the system two (Eq. \eqref{eq:ls-steps}),
+we propose divede the interferogram frame in $N$ subregions as
+illustrated in Fig. \ref{fig:subregions}.
+\begin{figure}
+  \centering
+  \includegraphics[width=4cm]{regions.eps}
+  \caption{Subregion division of interferogram frame. In practice, an
+    interferogram frame is divided into $N$ subregions where each
+    subregion has the same size.\label{fig:subregions}}
+\end{figure}
+Then system two is applied to each subregion independently in such a
+way that we are going to have $N$ estimations of the background
+illumination and cuadrature components for the phase-shifts.
 
 \bibliographystyle{plain} \bibliography{rst.bib}
 \end{document}
