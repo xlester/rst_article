@@ -114,66 +114,72 @@ modulating phase under test and $\delta_k$ the interframe phase-shift
 of the $k$-interferogram.
 
 \subsection{Iterative Least-Squares (ILS) algorithm}
-Actually, ILS algorithms use two systems with the same least-squares
-model. The input of the system one, is the interferogram sequence
-$I_k$ and interframe phase-shifts $\delta_k$ for $k=0,1,2,\dots,L-1$;
-and its output is the modulating phase $\phi(x,y)$. In system two, the
-input is the $k$-interferogram $I_k$ and all sites $(x,y)$ of the
-modulating phase $\phi$, and its output is the $k$-interferogram
-phase-shift $\delta_k$. Thus, iteratively the system one feeds the
-system two and vice versa.
+Actually, ILS algorithms use two systems using the least-squares
+model. The input of the \emph{system one}, are the interferograms
+$I_k(x,y)$ and phase-shifts $\delta_k$ for $k=0,1,2,\dots,L-1$ of the
+sequence, and its output is the modulating phase $\phi(x,y)$. In
+\emph{system two}, the input is the $k$-interferogram $I_k(x,y)$ and
+the modulating phase $\phi(x,y)$, while its output is the $k$
+phase-shift $\delta_k$. The iterative process is the following: system
+one feeds the system two and vice versa until reaching a convergence
+value.
 
-The PSI least-squares model of system one for estimating the
-modulating phase $\phi$ at $(x,y)$ can be written as follows:
+The \emph{system one} uses the following least-squares model for
+estimating the modulating phase $\phi$ at $(x,y)$:
 \begin{equation}
   U_1(a_{x,y},C_{x,y},S_{x,y}) = \sum_{k=0}^{L-1}\left[
     a_{x,y}+C_{x,y}\cos(\delta_k)-S_{x,y}\sin(\delta_k)-I_k(x,y)
   \right]^2, \label{eq:ls-phase}
 \end{equation} 
-where $C_{x,y}=\cos[\phi(x,y)]$ and $S_{x,y}=\sin[\phi(x,y)]$ are the
-unknown quadrature components of the interferogram sequence and
-$a_{x,y}$ is the unknown background illumination at $(x,y)$. Thus,
+where $C_{x,y}=b(x,y)\cos[\phi(x,y)]$ and
+$S_{x,y}=b(x,y)\sin[\phi(x,y)]$ are the unknown quadrature components
+and $a_{x,y}$ is the unknown background illumination at $(x,y)$. Thus,
 minimizing Eq. \eqref{eq:ls-phase} with respect to $C_{x,y}$,
-$S_{x,y}$ and $a_{x,y}$, we estimate the modulating phase $\phi(x,y)$
-in the following way:
+$S_{x,y}$ and $a_{x,y}$, we estimate the modulating phase $\phi$ at
+$(x,y)$ in the following way:
 \begin{equation}
   \hat\phi(x,y) = \arctan\left[-\frac{S_{x,y}}{C_{x,y}}\right].
 \end{equation}
-The least-squares model of system two for estimating the
-$k$-interframe phase-shift $\delta_k$ is:
+The \emph{system two} uses the following least-squares model for
+estimating the phase shift $\delta_k$ of the $k$-interferogram:
 \begin{equation}
   U_2(a_k,C_k,S_k) = \sum_{(x,y)\in \Gamma}\left[
     a_k+C_k\cos[\phi(x,y)]-S_k\sin[\phi(x,y)]-I_k(x,y)
   \right]^2, \label{eq:ls-steps}
 \end{equation} 
-where $C_k=\cos(\delta_k)$ and $S_k=\sin(\delta_k)$ are the unknowns
-and the sum runs over all sites of the domain $\Gamma$. Minimizing
-Eq. \eqref{eq:ls-steps} with respect to $C_k$, $S_k$ and $a_k$, we
-estimate the $k$-interframe phase-shift $\delta_k$ as:
+where $C_k=b\cos(\delta_k)$, $S_k=b\sin(\delta_k)$ and $a_k$ are the
+unknown values and $I_k$ is the k-interferogram. Note that the sum
+runs over all sites of the $I_k$ and not over each interferogram as in
+Eq. \eqref{eq:ls-phase}. Minimizing Eq. \eqref{eq:ls-steps} with
+respect to $C_k$, $S_k$ and $a_k$, we estimate the $k$-interframe
+phase-shift $\delta_k$ as:
 \begin{equation}
   \hat\delta_k = \arctan\left[-\frac{S_k}{C_k}\right].
 \end{equation}
-It is important to note the following:
+It is important to remark the following:
 \begin{itemize}
-\item[1] The model of Eq. \eqref{eq:ls-phase} is for the $(x,y)$ site,
-  runs over the interferograms, and assumes that the background
-  illumination $a_{x,y}$ does not changes along the interferogram
-  sequence.
-\item[2] The model of Eq. \eqref{eq:ls-steps} is for the
-  $k$-interferogram, runs over all sites of the frame, and assumes
-  that the background illumination of that frame, denoted by $a_k$, is
-  constant.
+\item[1] The model of Eq. \eqref{eq:ls-phase} (\emph{system one}) is
+  for the $(x,y)$ site, runs over the interferograms, and assumes that
+  the background illumination $a_{x,y}$ does not changes along the
+  interferogram sequence.
+\item[2] The model of Eq. \eqref{eq:ls-steps} (\emph{system two}) is
+  for the $k$-interferogram, runs over all sites of the frame, and
+  assumes a constant background illumination (denoted by $a_k$) in
+  that frame.
 \end{itemize}
-The assumption of Eq. \eqref{eq:ls-phase} is not so restrictive
-because actually the background illumination commonly does not changes
-between interferogram frames. However, the assumption of
-Eq. \eqref{eq:ls-steps} is more restrictive since as stated in
-Eq. \eqref{eq:I_k1}, we can not expect a constant background
-illuminations of the interferogram frame.
+The assumption of \emph{system one} is not so restrictive because
+actually the background illumination is expected constant along the
+interferograms sequence. However, the assumption of \emph{system two}
+is more restrictive since, as stated in Eq. \eqref{eq:I_k1}, it is not
+expected an interferogram with an spatially constant background
+illumination. Therefore, \emph{system two} has a latent source of
+error when actually the interferograms has not a constant spatial
+background illumination.
 
-For being more accurate with the system two (Eq. \eqref{eq:ls-steps}),
-we propose divede the interferogram frame in $N$ subregions as
-illustrated in Fig. \ref{fig:subregions}.
+To reduce the latent source of error in \emph{system two}, we propose
+divide the interferogram frame in $N$ subregions (as illustrated in
+Fig. \ref{fig:subregions}) and apply independently \emph{system two}
+on each subregion.
 \begin{figure}
   \centering
   \includegraphics[width=4cm]{regions.eps}
@@ -182,26 +188,21 @@ illustrated in Fig. \ref{fig:subregions}.
     subregion has the same size. Here it is illustrated the division
     for $N=9$.\label{fig:subregions}}
 \end{figure}
-Then, the system two is independently applied to each subregion in
-such a way that we are going to have a set $\mathbf{S}$ of $N$
-estimations. The element $n$ of this set of estimations $\mathbf{S}$
-is the background illumination and cuadrature components obtained for
-subregion $R_n$. Let us call $^na_k$, $^nC_k$ and $^nS_k$ to the
-components of the $n$-element of set $\mathbf{S}$. The local
-phase-shift of the subregion $R_n$ is:
+Proceeding in this way, we are going to have a set $\mathbf{S}$ of $N$
+estimations where the $n$-estimation belongs to the subregion
+$R_n$. The $n$-estimation in $\mathbf{S}$ has three components: the
+background illumination and two cuadrature components. Let us call
+$^na_k$, $^nC_k$ and $^nS_k$ to the components of the $n$-estimation
+in $\mathbf{S}$. The local phase-shift of the subregion $R_n$ is:
 \begin{equation}
   ^n\delta_k = \arctan\left[-\frac{^nS_k}{^nC_k}\right].
 \end{equation}
-There are two estimators that we can take to obtain the global
-phase-shift of the $k$-interferogram:
-\begin{itemize}
-\item[1.-] The mean:
-  \begin{equation}
-    \hat\delta_k = \frac{1}{N} \sum_{n=0}^{N-1} {^n\delta_k}
-  \end{equation}
-\item[2.-] and the mode: The most frequent value of the set $\{
-  {^n\delta_k}: n=0,1,2,\dots,N-1 \}$.
-\end{itemize}
+Now, to obtain the global phase-shift $\hat\delta_k$ of the
+interferogram $I_k$, we can use the following:
+\begin{equation}
+  \hat\delta_k = \frac{1}{N} \sum_{n=0}^{N-1} {^n\delta_k}
+\end{equation}
+which is the mean of the phase-shifts estimated on each subregion.
 
 
 \bibliographystyle{plain} \bibliography{rst.bib}
